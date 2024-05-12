@@ -14,10 +14,10 @@ public class HealthPotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (playerController != null && Input.GetMouseButtonDown(0))
+       if (playerController != null && Input.GetMouseButtonDown(0) && playerController.currentHealth != playerController.maxplayerHealth)
        {
             playerController.currentHealth += healPoints;
-                    Destroy(gameObject);
+            Destroy(gameObject);
        }
     }
   

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speedY;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
-    private int maxplayerHealth = 100;
+    public int maxplayerHealth = 100;
     public int currentHealth = 0;
     private EnemyController enemyController;
     private int playerHitPower = 10;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxplayerHealth;
         rb = GetComponent<Rigidbody2D>();
     }
-    void Update()
+    void FixedUpdate()
     {
         speedX = Input.GetAxisRaw("Horizontal");
         speedY = Input.GetAxisRaw("Vertical");
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Controls the max and min health of the player
     private void UpdateHealth(int mod){
         currentHealth += mod;
 
@@ -50,12 +51,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Controls input and min distance to enemy to inflict damage
     private void HitEnemy(){
         if (Input.GetMouseButtonDown(0)){
             // If left mouse button is clicked, player deals damage to enemy 
             if (enemyController != null){
                 float distance = Vector2.Distance(playerHitRadius.position, enemyController.enemyRadius.position);
-                if (distance < 5){
+                if (distance < 2){
                     enemyController.enemyHealth -= playerHitPower;
                 }
             }

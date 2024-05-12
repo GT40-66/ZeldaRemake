@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 3f;
+    public float speed = 1f;
     private Transform target;
     public int enemyHit = 5;
     public int enemyHealth = 40;
     public Transform enemyRadius; 
-private void Update() {
-    if (target != null) {
-        float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+
+    private void Update() 
+    {
+        if (target != null) {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+        }
+        EnemyHealth();
     }
-}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -31,5 +34,13 @@ private void Update() {
         }
     }
 
+    private void EnemyHealth()
+    {
+        if (enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     
 }
