@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDirection;
     public int maxplayerHealth = 100;
     public int currentHealth = 0;
-    private EnemyController enemyController;
-    private int playerHitPower = 10;
+    public int playerHitPower = 10;
     public Transform playerHitRadius;
 
     void Start()
@@ -27,17 +26,8 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector2(speedX, speedY).normalized;
         rb.velocity = moveDirection * moveSpeed;
 
-        HitEnemy();
     }
 
-    private void OnCollisionEnter2D(Collision2D other){
-        if(other.gameObject.tag == "Enemy"){
-            enemyController = other.gameObject.GetComponent<EnemyController>();
-            if (enemyController != null){
-                currentHealth -= enemyController.enemyHit;
-            }  
-        }
-    }
 
     // Controls the max and min health of the player
     private void UpdateHealth(int mod){
@@ -51,16 +41,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Controls input and min distance to enemy to inflict damage
-    private void HitEnemy(){
-        if (Input.GetMouseButtonDown(0)){
-            // If left mouse button is clicked, player deals damage to enemy 
-            if (enemyController != null){
-                float distance = Vector2.Distance(playerHitRadius.position, enemyController.enemyRadius.position);
-                if (distance < 2){
-                    enemyController.enemyHealth -= playerHitPower;
-                }
-            }
-        }
-    }
+    
 }
